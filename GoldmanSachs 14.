@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int rev(int n){
+        int r=0;
+        while(n>0){
+           int pop = n%10;
+           n=n/10;
+           r = r*10+pop; 
+        }
+        return r;
+    }
+
+    int countNicePairs(vector<int>& nums) {
+        vector<int>v;
+        int n = nums.size();
+
+        for(int i=0;i<n;i++){
+            int temp = rev(nums[i]);
+            v.push_back(nums[i] - temp);
+        }
+
+        unordered_map<int ,long> m;
+        for(auto& it:v){
+            m[it]++;
+        }
+
+        //res = (res + m[n - rev(n)]++) % 1000000007;
+
+        long sum =0;
+
+        for(auto it:m){
+            // int t = (it.second)%(1000000007);
+           sum =(sum+ ((it.second*(it.second-1))/2))%(1000000007);
+            
+        }
+            return sum%(1000000007);
+    }
+//     int countNicePairs(vector<int>& nums) {
+// 	long count = 0;
+// 	unordered_map<int, long> mp;
+// 	for(auto& num : nums) mp[num - rev(num)]++;        // counting frequency of each n - rev(n)
+// 	for(auto& pair : mp)  // with each value, we can form n*(n-1)/2 pairs
+// 		count = (count + (pair.second * (pair.second - 1)) / 2) % 1000000007; 
+// 	/* Infact, the above can be done in a single pass as well which I didn't realise at the first try -
+// 	for(auto& num : nums) count = (count + mp[num - reverseNum(num)]++) % 1000000007;
+// 	*/
+// 	return count;
+// }
+// int rev(int n){
+// 	int revNum = 0;
+// 	while(n) revNum = revNum * 10 + (n % 10), n /= 10;
+// 	return revNum;
+// }
+};
