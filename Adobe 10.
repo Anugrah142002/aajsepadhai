@@ -1,0 +1,65 @@
+class Solution {
+public:
+    long long maxMatrixSum(vector<vector<int>>& matrix) {
+        
+        // long long n = matrix.size();
+
+        // vector<long long> v;
+
+        // long long zero=0;
+        // long long ans =0;
+        // long long temp=INT_MAX;
+
+        // for(long long i =0;i<n;i++){
+        //     for(long long j =0;j<n;j++){
+        //         if(abs(matrix[i][j]) < temp){
+        //             temp = abs(matrix[i][j]);
+        //         }
+        //         if(matrix[i][j] < 0){
+        //             v.push_back(abs(matrix[i][j]));
+        //         }
+        //         else if(matrix[i][j] == 0){
+        //             zero ++;
+        //         }
+        //         ans += abs(matrix[i][j]);
+                
+        //     }
+        // }
+        // sort(v.begin(),v.end());
+
+        // if((v.size())%2 == 0 ){
+        //     return ans ;
+        // }
+        // else if((v.size()%2 !=0) && zero>=1){
+        //     return ans ;
+        // }
+        // else{
+        //     if(v[0]<temp){
+        //     return ans - 2*(v[0]);
+        //     }
+        //     else{
+        //         return ans - 2*(temp);
+        //     }
+        // }
+
+        long long cnt=0;
+        long long mn=INT_MAX;
+        long long sum=0;
+
+
+        for(auto r:matrix){
+            for(auto i:r){
+                if(i<0){
+                   cnt++; 
+                   
+                }
+                mn=min(mn,(long long)abs(i));
+                   sum+=abs(i);
+            }
+        }
+
+        return cnt%2 ? sum - 2*(mn): sum ;
+
+
+    }
+};
