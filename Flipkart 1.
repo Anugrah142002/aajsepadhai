@@ -1,0 +1,66 @@
+class Solution {
+public:
+    vector<bool> vis;
+    
+    bool count(int i,vector<int> &nums,int n,int k ,int currsum,int target ){
+
+        if(k==1){
+            return true;
+        }
+
+        if(i == n ){
+                return false;
+        }
+
+        if(currsum == target){
+            return count(0,nums,n,k-1,0,target);
+        }
+
+        for(int j = i ;j<n;j++){
+
+            if( vis[j]==false && (currsum+nums[j])<=target  ){
+
+                vis[j]=true;
+                currsum += nums[j];
+                
+
+                if(count(j+1,nums,n,k,currsum,target))
+                    return true;
+
+                vis[j]=false;
+                currsum -= nums[j];
+                
+            }
+
+            
+        }
+
+            return false;
+    }
+
+    bool canPartitionKSubsets(vector<int>& nums, int k) {
+        
+        int n = nums.size();
+        int sum = 0;
+        
+        // find the sum of the nums array
+        
+        for(auto x : nums)
+        {
+            sum += x;
+        }
+        
+        
+
+        if(sum%k){
+            return false;
+        }
+
+        int t= sum/k;
+
+        vis.assign(n,false);
+
+        return count(0,nums,n,k,0,t);
+
+    }
+};
