@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool isStrictlyPalindromic(int n) {
+        return false;
+    }
+};
+
+//----------------------------------------------------------------------
+
+/*
+class Solution {
+public:
+    bool isStrictlyPalindromic(int n) {
+
+        for(int base=2;base<=n-2;base++){
+            vector<int>v;
+            int temp=n;
+            while(temp){
+                int rem= temp%base;
+                temp/=base;
+                v.push_back(rem);
+            }
+
+            int first=0, last=v.size()-1;
+
+            while(first<last){
+                if(v[first]!= v[last])return false;
+                first++;
+                last--;
+
+            }
+        }
+
+        return true;
+        
+    }
+};
