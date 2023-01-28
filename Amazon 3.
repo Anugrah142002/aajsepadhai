@@ -1,0 +1,41 @@
+class Solution {
+public:
+
+int m=1;
+
+
+void check(string &s,int ind , unordered_set<string> &ss,int &n,int b){
+    
+    if(ind==n){
+        int temp =ss.size();
+        m= max(m,temp);
+        return ;
+    }
+
+    string t ;
+
+    for(int i =ind;i<n;i++){
+        t.push_back(s[i]);
+        if(ss.find(t) != ss.end()){
+            continue;
+        }
+
+        ss.insert(t);
+
+        check(s,i+1,ss,n,1+b);
+
+        ss.erase(t);
+    }
+
+}
+
+
+   
+    int maxUniqueSplit(string s) {
+        int n =s.size();
+        unordered_set<string> ss;
+
+        check(s,0,ss,n,0);
+        return m;
+    }
+};
