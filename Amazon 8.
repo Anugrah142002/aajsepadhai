@@ -1,0 +1,58 @@
+class Solution {
+public:
+    bool asteroidsDestroyed(int mass, vector<int>& asteroids) {
+        
+        sort(asteroids.begin(),asteroids.end());
+
+        if(asteroids.size() == 1){
+            if(mass < asteroids[0]){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+
+        if(asteroids[0] > mass){
+            return false;
+        }
+
+        long long temp=mass ;
+        for( long long i =0;i<asteroids.size();i++){
+               if(asteroids[i] > temp){
+                     return false;
+               }      
+
+               temp += asteroids[i];
+        }
+
+        return true;
+    }
+};
+
+//---------------------------------------------------------------------------------
+
+/*
+class Solution {
+public:
+    bool asteroidsDestroyed(int mass, vector<int>& a) {
+        vector<int> v;
+        long long m=mass;
+        for(int i=0;i<a.size();i++){
+            if(a[i]<=m){
+                m+=a[i];
+            }
+            else{
+                v.push_back(a[i]);
+            }
+        }
+        sort(v.begin(),v.end());
+        for(int i=0;i<v.size();i++){
+            if(v[i]>m) return false;
+            else m+=v[i];
+        }
+        return true;
+    }
+};
+
+*/
