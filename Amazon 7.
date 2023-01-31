@@ -1,0 +1,128 @@
+class Solution {
+public:
+    string predictPartyVictory(string arr) {
+        int d =count(arr.begin(),arr.end(),'D');
+    int r =count(arr.begin(),arr.end(),'R');
+    
+    int n =arr.size();
+    
+    vector<int> v(n,0);
+    
+   int i=0;
+   int j =0;
+
+   
+   int r1=0;
+   int d1=0;
+   
+
+   
+   
+    while(r1<r && d1<d  ){
+        
+        if(i>=n){
+            i=0;
+        }
+        
+        if(arr[i] == 'D' && v[i] == 0){
+            j=i+1;
+            
+            
+            if(j>=n){
+                j=0;
+            }
+            
+            while(j<=n){
+                 
+                if(j==n){
+                    j=0;
+                }
+                else if(arr[j] == 'R' && v[j] == 0){
+                    
+                    v[j] = 1;
+                    //cout<<i<<" "<<j<<endl;
+                    r1++;
+                    //cout<<"r1 si :"<<r1<<endl;
+                     i++;
+                    break;
+                }
+                else{
+                    j++;
+                }
+            }
+        }
+        else if(arr[i] == 'R' && v[i] == 0){
+            
+            
+             j=i+1;
+            
+            if(j>=n){
+          
+                j=0;
+            }
+            
+            
+            while(j<=n){
+                if(j==n){
+                    j=0;
+                }
+                else if(arr[j] == 'D' && v[j] == 0){
+                    v[j] = 1;
+                    //cout<<r1<<endl;
+                    d1++;
+                    //cout<<"d1 si :"<<d1<<endl;
+                     i++;
+                    
+                    break;
+                }
+                else{
+                    j++;
+                }
+            }
+        }
+        else{
+            i++;
+        }
+            
+           
+    }
+    
+    // cout<<r1<<endl;
+    // cout<<d1<<endl;
+    
+     if(r1== r){
+            return "Dire";
+        }
+        else{
+            return "Radiant";
+        }
+    
+    }
+};
+
+//------------------------------------------------------------------
+
+/*class Solution {
+public:
+    string predictPartyVictory(string senate) {
+        queue<int> rq, dq;
+        
+        for(int i=0; i<senate.size(); i++)
+            senate[i] == 'R' ? rq.push(i): dq.push(i);
+        
+        int a, b;
+        while(!rq.empty() and !dq.empty()){
+            a = rq.front(), b = dq.front();
+            rq.pop(), dq.pop();
+            if (a < b) // taking min and pushing it to queue again
+                rq.push(a+senate.size());
+            else
+                dq.push(b+senate.size());
+        }
+        
+		if (rq.size() > dq.size())
+			return "Radiant";
+		else
+			return "Dire";
+    }
+};
