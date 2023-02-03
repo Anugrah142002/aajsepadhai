@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<vector<string>> mostPopularCreator(vector<string>& creators, vector<string>& ids, vector<int>& views) {
+        
+        unordered_map <string , long long > mp1;
+        unordered_map <string, pair<string,long long> > mp2;
+
+        long long ma = 0;
+
+        for(int i =0;i<creators.size();i++){
+            mp1[creators[i]] += views[i];
+
+            ma = max(ma,mp1[creators[i]]);
+
+            if(mp2.find(creators[i]) == mp2.end()){
+                mp2[creators[i]]= make_pair(ids[i] ,views[i]);
+            }
+            else if(mp2[creators[i]].second < views[i] ){
+                mp2[creators[i]] = make_pair(ids[i] , views[i]);
+            }
+            else if(views[i] == mp2[creators[i]].second ){
+                if(mp2[creators[i]].first > ids[i]){
+                    mp2[creators[i]].first = ids[i];
+                }
+            }
+
+
+
+        }
+
+        vector<vector<string>> ans;
+
+        for(auto it: mp1){
+            if(it.second == ma){
+                ans.push_back({it.first , mp2[it.first].first});
+            }
+        }
+
+
+        return ans;
+    }
+};
